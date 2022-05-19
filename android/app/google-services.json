@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "252354284928",
+    "project_id": "yoklamasistemi-33e58",
+    "storage_bucket": "yoklamasistemi-33e58.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252354284928:android:fd841ab2894dd2bedb8565",
+        "android_client_info": {
+          "package_name": "com.example.yoklama_sistemi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "252354284928-fu5nafdci6n5mnvnu4bmhsp0ugbtge0i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yoklama_sistemi",
+            "certificate_hash": "d7dd705a152078c9a95005eec00ba3176a91c16c"
+          }
+        },
+        {
+          "client_id": "252354284928-9gar6dcv3atvcqrlfghek9kqb655u6cp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLAi_BEofDi3juKvABW9Rz4EJAY6BV790"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "252354284928-9gar6dcv3atvcqrlfghek9kqb655u6cp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
