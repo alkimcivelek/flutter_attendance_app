@@ -93,6 +93,26 @@ class DatabaseMethods {
     });
   }
 
+  Future<void> setStudentOK() async {
+    var student = await FirebaseFirestore.instance
+        .collection("users")
+        .where("email", isEqualTo: FirebaseAuth.instance.currentUser!.email)
+        .get();
+    var id = student.docs[0].id;
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(id)
+        .update({"isCodeTrue": true, "isLocationTrue": true});
+  }
+
+  Future<String> getDocId() async {
+    var student = await FirebaseFirestore.instance
+        .collection("users")
+        .where("email", isEqualTo: FirebaseAuth.instance.currentUser!.email)
+        .get();
+    return student.docs[0].id;
+  }
+
   Future takeAttendance(String className) async {
     Student? student;
     String? id;

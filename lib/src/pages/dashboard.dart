@@ -81,7 +81,7 @@ class _GridDashboardState extends State<GridDashboard> {
                 ],
               ),
               SizedBox(
-                height: 15,
+                height: 10,
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -118,7 +118,7 @@ class _GridDashboardState extends State<GridDashboard> {
                 ],
               ),
               SizedBox(
-                height: 40,
+                height: 20,
               ),
               Expanded(
                 child: FutureBuilder(
@@ -294,40 +294,73 @@ class _GridDashboardState extends State<GridDashboard> {
                                               top: 110,
                                               child: TextButton(
                                                 onPressed: () async {
-                                                  var ss =
-                                                      await db.getClassTime();
+                                                  if (atSchool) {
+                                                    var ss =
+                                                        await db.getClassTime();
 
-                                                  if (ss.docs.length > 0 &&
-                                                      ss.docs[0].get("time") >
-                                                          0) {
-                                                    var code = await ss.docs[0]
-                                                        .get("code");
-                                                    if (_controller.text ==
-                                                        code) {
-                                                      MessageDialog
-                                                          messageDialog =
-                                                          MessageDialog(
-                                                        dialogBackgroundColor:
-                                                            HexColor("141d26"),
-                                                        buttonOkColor:
-                                                            HexColor("#4E944F"),
-                                                        title: 'Başarılı',
-                                                        titleColor:
-                                                            Colors.white,
-                                                        message:
-                                                            'Kod doğrulandı. Yoklamanızı yapabilirsiniz.',
-                                                        messageColor:
-                                                            Colors.white,
-                                                        buttonOkText: 'TAMAM',
-                                                        dialogRadius: 15.0,
-                                                        buttonRadius: 18.0,
-                                                      );
-                                                      messageDialog.show(
-                                                          context,
-                                                          barrierColor:
-                                                              Colors.black,
-                                                          barrierDismissible:
-                                                              false);
+                                                    if (ss.docs.length > 0 &&
+                                                        ss.docs[0].get("time") >
+                                                            0) {
+                                                      var code = await ss
+                                                          .docs[0]
+                                                          .get("code");
+                                                      if (_controller.text ==
+                                                          code) {
+                                                        await db.setStudentOK();
+                                                        MessageDialog
+                                                            messageDialog =
+                                                            MessageDialog(
+                                                          dialogBackgroundColor:
+                                                              HexColor(
+                                                                  "141d26"),
+                                                          buttonOkColor:
+                                                              HexColor(
+                                                                  "#4E944F"),
+                                                          title: 'Başarılı',
+                                                          titleColor:
+                                                              Colors.white,
+                                                          message:
+                                                              'Kod doğrulandı. Yoklamanızı yapabilirsiniz.',
+                                                          messageColor:
+                                                              Colors.white,
+                                                          buttonOkText: 'TAMAM',
+                                                          dialogRadius: 15.0,
+                                                          buttonRadius: 18.0,
+                                                        );
+                                                        messageDialog.show(
+                                                            context,
+                                                            barrierColor:
+                                                                Colors.black,
+                                                            barrierDismissible:
+                                                                false);
+                                                      } else {
+                                                        MessageDialog
+                                                            messageDialog =
+                                                            MessageDialog(
+                                                          dialogBackgroundColor:
+                                                              HexColor(
+                                                                  "141d26"),
+                                                          buttonOkColor:
+                                                              HexColor(
+                                                                  "#B33030"),
+                                                          title: 'Başarısız',
+                                                          titleColor:
+                                                              Colors.white,
+                                                          message:
+                                                              'Girilen kod hatalı.',
+                                                          messageColor:
+                                                              Colors.white,
+                                                          buttonOkText: 'TAMAM',
+                                                          dialogRadius: 15.0,
+                                                          buttonRadius: 18.0,
+                                                        );
+                                                        messageDialog.show(
+                                                            context,
+                                                            barrierColor:
+                                                                Colors.black,
+                                                            barrierDismissible:
+                                                                false);
+                                                      }
                                                     } else {
                                                       MessageDialog
                                                           messageDialog =
@@ -340,7 +373,7 @@ class _GridDashboardState extends State<GridDashboard> {
                                                         titleColor:
                                                             Colors.white,
                                                         message:
-                                                            'Girilen kod hatalı.',
+                                                            'Oluşturulan kod geçerliliğini yitirdi veya geçersiz kod girildi.',
                                                         messageColor:
                                                             Colors.white,
                                                         buttonOkText: 'TAMAM',
@@ -362,10 +395,11 @@ class _GridDashboardState extends State<GridDashboard> {
                                                           HexColor("141d26"),
                                                       buttonOkColor:
                                                           HexColor("#B33030"),
-                                                      title: 'Başarısız',
+                                                      title:
+                                                          'Konum Doğrulanmadı',
                                                       titleColor: Colors.white,
                                                       message:
-                                                          'Oluşturulan kod geçerliliğini yitirdi.',
+                                                          'Öncelikle konumunuzu doğrulamalısınız.',
                                                       messageColor:
                                                           Colors.white,
                                                       buttonOkText: 'TAMAM',

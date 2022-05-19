@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dialogs/dialogs/message_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,6 +22,8 @@ class TakeAttendanceState extends State<TakeAttendance> {
   final DatabaseMethods db = DatabaseMethods();
   final DateTime now = DateTime.now();
   bool isAttendanceVisible = false;
+  bool isLocationTrue = false;
+  bool isCodeTrue = false;
   bool isClicked = false;
   String? _timeHour;
   String? _timeMinute;
@@ -113,53 +116,92 @@ class TakeAttendanceState extends State<TakeAttendance> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-              child: Container(
-                child: Card(
-                  color: Colors.white.withOpacity(0.08),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Konum doğrulandı",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 18.0)),
-                            CircleAvatar(
-                                maxRadius: 13,
-                                foregroundColor: HexColor("141d26"),
-                                backgroundColor: Colors.red[300],
-                                child: Icon(
-                                  FontAwesomeIcons.exclamation,
-                                  size: 18,
-                                )),
-                          ],
+              child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection("users")
+                      .where("email",
+                          isEqualTo: FirebaseAuth.instance.currentUser!.email)
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasData) {
+                      return Container(
+                        child: Card(
+                          color: Colors.white.withOpacity(0.08),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Konum doğrulandı",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18.0)),
+                                    CircleAvatar(
+                                        maxRadius: 13,
+                                        foregroundColor: HexColor("141d26"),
+                                        backgroundColor: snapshot.data!.docs[0]
+                                                    .get("isCodeTrue") ==
+                                                true
+                                            ? Colors.green[300]
+                                            : Colors.red[300],
+                                        child: snapshot.data!.docs[0]
+                                                    .get("isCodeTrue") ==
+                                                true
+                                            ? Icon(
+                                                FontAwesomeIcons.check,
+                                                size: 18,
+                                              )
+                                            : Icon(
+                                                FontAwesomeIcons.exclamation,
+                                                size: 18,
+                                              )),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 25,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Ders yoklaması için kod doğrulandı",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18.0)),
+                                    CircleAvatar(
+                                        maxRadius: 13,
+                                        foregroundColor: HexColor("141d26"),
+                                        backgroundColor: snapshot.data!.docs[0]
+                                                    .get("isCodeTrue") ==
+                                                true
+                                            ? Colors.green[300]
+                                            : Colors.red[300],
+                                        child: snapshot.data!.docs[0]
+                                                    .get("isCodeTrue") ==
+                                                true
+                                            ? Icon(
+                                                FontAwesomeIcons.check,
+                                                size: 18,
+                                              )
+                                            : Icon(
+                                                FontAwesomeIcons.exclamation,
+                                                size: 18,
+                                              )),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          height: 25,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Ders yoklaması için kod doğrulandı",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 18.0)),
-                            CircleAvatar(
-                                maxRadius: 13,
-                                foregroundColor: HexColor("141d26"),
-                                backgroundColor: Colors.red[300],
-                                child: Icon(
-                                  FontAwesomeIcons.exclamation,
-                                  size: 18,
-                                )),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+                      );
+                    } else {
+                      return Container();
+                    }
+                  }),
             ),
             SizedBox(
               height: 15,
@@ -275,6 +317,32 @@ class TakeAttendanceState extends State<TakeAttendance> {
                                                               false;
                                                         });
                                                       }
+                                                      var students =
+                                                          await FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  "users")
+                                                              .where("email",
+                                                                  isEqualTo: FirebaseAuth
+                                                                      .instance
+                                                                      .currentUser!
+                                                                      .email)
+                                                              .get();
+                                                      var studentId =
+                                                          students.docs[0].id;
+                                                      var student =
+                                                          await FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  "users")
+                                                              .doc(studentId)
+                                                              .get();
+                                                      var isTrue = student.get(
+                                                          "isLocationTrue");
+                                                      setState(() {
+                                                        isAttendanceVisible =
+                                                            isTrue;
+                                                      });
                                                     },
                                                     child: Row(children: [
                                                       Text(
@@ -321,6 +389,27 @@ class TakeAttendanceState extends State<TakeAttendance> {
                                                 messageDialog.show(context,
                                                     barrierColor: Colors.black,
                                                     barrierDismissible: false);
+                                                     var students =
+                                                  await FirebaseFirestore
+                                                      .instance
+                                                      .collection("users")
+                                                      .where(
+                                                          "email",
+                                                          isEqualTo:
+                                                              FirebaseAuth
+                                                                  .instance
+                                                                  .currentUser!
+                                                                  .email)
+                                                      .get();
+                                              var studentId =
+                                                  students.docs[0].id;
+                                              await FirebaseFirestore.instance
+                                                  .collection("users")
+                                                  .doc(studentId)
+                                                  .update({
+                                                "isLocationTrue": false,
+                                                "isCodeTrue": false
+                                              });
                                                 if (await db
                                                     .getClassNameOnSpecificDate(
                                                         db.getClassDate(),
@@ -516,6 +605,31 @@ class TakeAttendanceState extends State<TakeAttendance> {
                                                             false;
                                                       });
                                                     }
+                                                    var students =
+                                                        await FirebaseFirestore
+                                                            .instance
+                                                            .collection("users")
+                                                            .where("email",
+                                                                isEqualTo:
+                                                                    FirebaseAuth
+                                                                        .instance
+                                                                        .currentUser!
+                                                                        .email)
+                                                            .get();
+                                                    var studentId =
+                                                        students.docs[0].id;
+                                                    var student =
+                                                        await FirebaseFirestore
+                                                            .instance
+                                                            .collection("users")
+                                                            .doc(studentId)
+                                                            .get();
+                                                    var isTrue = student
+                                                        .get("isLocationTrue");
+                                                    setState(() {
+                                                      isAttendanceVisible =
+                                                          isTrue;
+                                                    });
                                                   },
                                                   child: Row(children: [
                                                     Text(
@@ -560,6 +674,27 @@ class TakeAttendanceState extends State<TakeAttendance> {
                                               messageDialog.show(context,
                                                   barrierColor: Colors.black,
                                                   barrierDismissible: false);
+                                              var students =
+                                                  await FirebaseFirestore
+                                                      .instance
+                                                      .collection("users")
+                                                      .where(
+                                                          "email",
+                                                          isEqualTo:
+                                                              FirebaseAuth
+                                                                  .instance
+                                                                  .currentUser!
+                                                                  .email)
+                                                      .get();
+                                              var studentId =
+                                                  students.docs[0].id;
+                                              await FirebaseFirestore.instance
+                                                  .collection("users")
+                                                  .doc(studentId)
+                                                  .update({
+                                                "isLocationTrue": false,
+                                                "isCodeTrue": false
+                                              });
                                               if (await db
                                                   .getClassNameOnSpecificDate(
                                                       db.getClassDate(),

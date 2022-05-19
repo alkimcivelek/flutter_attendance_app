@@ -193,99 +193,105 @@ class _GridDashboardAdminState extends State<GridDashboardAdmin> {
                                         right: 45,
                                         child: Container(
                                           alignment: Alignment.center,
-                                          child: TextButton(
-                                            onPressed: () async {
-                                              switch (index) {
-                                                case 0:
-                                                  var uid = Uuid();
-                                                  var generatedCode = uid.v1();
-                                                  generatedCode = generatedCode
-                                                      .split("-")[0];
-                                                  await db.saveGeneratedCode(
-                                                      generatedCode);
-                                                  MessageDialog messageDialog =
-                                                      MessageDialog(
-                                                    dialogBackgroundColor:
-                                                        HexColor("141d26"),
-                                                    buttonOkColor:
-                                                        HexColor("#4E944F"),
-                                                    title: 'Kod Oluşturuldu',
-                                                    titleColor: Colors.white,
-                                                    message:
-                                                        'Öğrencilerin yoklamalarını yapabilmesi için gerekli olan kod başarı ile oluşturuldu.',
-                                                    messageColor: Colors.white,
-                                                    buttonOkText: 'TAMAM',
-                                                    dialogRadius: 15.0,
-                                                    buttonRadius: 18.0,
-                                                  );
-                                                  messageDialog.show(context,
-                                                      barrierColor:
-                                                          Colors.black,
-                                                      barrierDismissible:
-                                                          false);
-                                                  break;
-                                                case 1:
-                                                  var snapshot =
-                                                      await db.getCode();
-                                                  if (await snapshot
-                                                          .get("code")
-                                                          .length <=
-                                                      0) {
-                                                    MessageDialog
-                                                        messageDialog =
-                                                        MessageDialog(
-                                                      dialogBackgroundColor:
-                                                          HexColor("141d26"),
-                                                      buttonOkColor:
-                                                          HexColor("#B33030"),
-                                                      title: 'Kod Oluşturun',
-                                                      titleColor: Colors.white,
-                                                      message:
-                                                          'Süreyi başlatabilmek için yeniden kod oluşturmanız gerekmektedir.',
-                                                      messageColor:
-                                                          Colors.white,
-                                                      buttonOkText: 'TAMAM',
-                                                      dialogRadius: 15.0,
-                                                      buttonRadius: 18.0,
-                                                    );
-                                                    await db
-                                                        .updateCountDownTimer(
-                                                            0);
-                                                    await db.updateCode();
-                                                    messageDialog.show(context,
-                                                        barrierColor:
-                                                            Colors.black,
-                                                        barrierDismissible:
-                                                            false);
-                                                  } else {
-                                                    debugPrint(db
-                                                        .getCode()
-                                                        .toString()
-                                                        .length
-                                                        .toString());
-                                                    _controller.start();
-                                                    await db
-                                                        .updateCountDownTimer(
-                                                            _duration);
+                                          child: Row(
+                                            children: [
+                                              TextButton(
+                                                onPressed: () async {
+                                                  switch (index) {
+                                                    case 0:
+                                                      var uid = Uuid();
+                                                      var generatedCode = uid.v1();
+                                                      generatedCode = generatedCode
+                                                          .split("-")[0];
+                                                      await db.saveGeneratedCode(
+                                                          generatedCode);
+                                                      var code = await db.getCode();
+                                                      MessageDialog messageDialog =
+                                                          MessageDialog(
+                                                        dialogBackgroundColor:
+                                                            HexColor("141d26"),
+                                                        buttonOkColor:
+                                                            HexColor("#4E944F"),
+                                                        title: 'Kod Oluşturuldu',
+                                                        titleColor: Colors.white,
+                                                        message:
+                                                            'Öğrencilerin yoklamalarını yapabilmesi için gerekli olan kod başarı ile oluşturuldu. Oluşturulan kod: ${code.get("code").toString()}',
+                                                        messageColor: Colors.white,
+                                                        buttonOkText: 'TAMAM',
+                                                        dialogRadius: 15.0,
+                                                        buttonRadius: 18.0,
+                                                      );
+                                                      messageDialog.show(context,
+                                                          barrierColor:
+                                                              Colors.black,
+                                                          barrierDismissible:
+                                                              false);
+                                                      break;
+                                                    case 1:
+                                                      var snapshot =
+                                                          await db.getCode();
+                                                      if (await snapshot
+                                                              .get("code")
+                                                              .length <=
+                                                          0) {
+                                                        MessageDialog
+                                                            messageDialog =
+                                                            MessageDialog(
+                                                          dialogBackgroundColor:
+                                                              HexColor("141d26"),
+                                                          buttonOkColor:
+                                                              HexColor("#B33030"),
+                                                          title: 'Kod Oluşturun',
+                                                          titleColor: Colors.white,
+                                                          message:
+                                                              'Süreyi başlatabilmek için yeniden kod oluşturmanız gerekmektedir.',
+                                                          messageColor:
+                                                              Colors.white,
+                                                          buttonOkText: 'TAMAM',
+                                                          dialogRadius: 15.0,
+                                                          buttonRadius: 18.0,
+                                                        );
+                                                        await db
+                                                            .updateCountDownTimer(
+                                                                0);
+                                                        await db.updateCode();
+                                                        messageDialog.show(context,
+                                                            barrierColor:
+                                                                Colors.black,
+                                                            barrierDismissible:
+                                                                false);
+                                                      } else {
+                                                        var code =
+                                                            await db.getCode();
+                                                        debugPrint(code
+                                                            .toString()
+                                                            .length
+                                                            .toString());
+                                                        _controller.start();
+                                                        await db
+                                                            .updateCountDownTimer(
+                                                                _duration);
+                                                      }
+                                                      break;
+                                                    default:
+                                                      break;
                                                   }
-                                                  break;
-                                                default:
-                                                  break;
-                                              }
-                                            },
-                                            child: Text(
-                                              list[index].buttonText,
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 12,
+                                                },
+                                                child: Text(
+                                                  list[index].buttonText,
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                                style: TextButton.styleFrom(
+                                                  primary: Colors.white,
+                                                  backgroundColor:
+                                                      HexColor("#84C9FB"),
+                                                  onSurface: Colors.grey,
+                                                ),
                                               ),
-                                            ),
-                                            style: TextButton.styleFrom(
-                                              primary: Colors.white,
-                                              backgroundColor:
-                                                  HexColor("#84C9FB"),
-                                              onSurface: Colors.grey,
-                                            ),
+                                            ],
                                           ),
                                         ))
                                     : Container(),
