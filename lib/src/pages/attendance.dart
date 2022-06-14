@@ -389,27 +389,26 @@ class TakeAttendanceState extends State<TakeAttendance> {
                                                 messageDialog.show(context,
                                                     barrierColor: Colors.black,
                                                     barrierDismissible: false);
-                                                     var students =
-                                                  await FirebaseFirestore
-                                                      .instance
-                                                      .collection("users")
-                                                      .where(
-                                                          "email",
-                                                          isEqualTo:
-                                                              FirebaseAuth
-                                                                  .instance
-                                                                  .currentUser!
-                                                                  .email)
-                                                      .get();
-                                              var studentId =
-                                                  students.docs[0].id;
-                                              await FirebaseFirestore.instance
-                                                  .collection("users")
-                                                  .doc(studentId)
-                                                  .update({
-                                                "isLocationTrue": false,
-                                                "isCodeTrue": false
-                                              });
+                                                var students =
+                                                    await FirebaseFirestore
+                                                        .instance
+                                                        .collection("users")
+                                                        .where("email",
+                                                            isEqualTo:
+                                                                FirebaseAuth
+                                                                    .instance
+                                                                    .currentUser!
+                                                                    .email)
+                                                        .get();
+                                                var studentId =
+                                                    students.docs[0].id;
+                                                await FirebaseFirestore.instance
+                                                    .collection("users")
+                                                    .doc(studentId)
+                                                    .update({
+                                                  "isLocationTrue": false,
+                                                  "isCodeTrue": false
+                                                });
                                                 if (await db
                                                     .getClassNameOnSpecificDate(
                                                         db.getClassDate(),
@@ -417,6 +416,7 @@ class TakeAttendanceState extends State<TakeAttendance> {
                                                             .data!.docs[index]
                                                             .get("name"))) {
                                                   if (!mounted) return;
+
                                                   setState(() {
                                                     isAttendanceVisible = false;
                                                   });
