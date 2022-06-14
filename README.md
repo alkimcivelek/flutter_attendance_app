@@ -15,9 +15,17 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-<img src="https://user-images.githubusercontent.com/74659671/173587760-d768b004-c169-4819-bfb1-4cd75818e8f1.png" width="200"/>
-<img src="https://user-images.githubusercontent.com/74659671/173587770-e9277725-9061-41be-8bcf-e4b667bdea9f.png" width="200"/>
-<img src="https://user-images.githubusercontent.com/74659671/173587773-451577a0-21cb-4907-8031-312eba7978f0.png" width="200"/>
+<div class="row">
+  <div class="column">
+    <img src="https://user-images.githubusercontent.com/74659671/173587770-e9277725-9061-41be-8bcf-e4b667bdea9f.png" width="200"/>
+  </div>
+  <div class="column">
+    <img src="https://user-images.githubusercontent.com/74659671/173587773-451577a0-21cb-4907-8031-312eba7978f0.png" width="200"/>
+  </div>
+</div>
+
+
+
 <img src="https://user-images.githubusercontent.com/74659671/173587776-b136eb73-2351-433e-8876-8ad67e2c7c89.png" width="200"/>
 <img src="https://user-images.githubusercontent.com/74659671/173587785-c8fe60cd-0943-481d-be5c-db7a6d531b26.png" width="200"/>
 <img src="https://user-images.githubusercontent.com/74659671/173587790-d06edbbb-7c35-4622-a3a8-64e58c77b763.png" width="200"/>
