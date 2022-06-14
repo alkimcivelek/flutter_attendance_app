@@ -1,6 +1,6 @@
-# yoklama_sistemi
+# Take Attendance App
 
-A new Flutter project.
+Used Flutter and Firebase
 
 ## Getting Started
 
