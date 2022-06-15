@@ -15,6 +15,17 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+Icons
+- <a href="https://www.flaticon.com/free-icons/absenteeism" title="absenteeism icons">Absenteeism icons created by Freepik - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/timer" title="timer icons">Timer icons created by Pixel perfect - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/book" title="book icons">Book icons created by Smashicons - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/sms" title="sms icons">Sms icons created by Freepik - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/key" title="key icons">Key icons created by Freepik - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/location" title="location icons">Location icons created by bqlqn - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/map" title="map icons">Map icons created by Freepik - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/information" title="information icons">Information icons created by Freepik - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/contact-center" title="contact center icons">Contact center icons created by Freepik - Flaticon</a>
+
 <img src="https://user-images.githubusercontent.com/74659671/173587770-e9277725-9061-41be-8bcf-e4b667bdea9f.png" width="200"/>
 <img src="https://user-images.githubusercontent.com/74659671/173587773-451577a0-21cb-4907-8031-312eba7978f0.png" width="200"/>
 <img src="https://user-images.githubusercontent.com/74659671/173587776-b136eb73-2351-433e-8876-8ad67e2c7c89.png" width="200"/>
