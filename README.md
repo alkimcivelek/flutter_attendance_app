@@ -1,6 +1,6 @@
 # Take Attendance App
 
-Used Flutter and Firebase
+Used Flutter with Firebase in this project.
 
 ## Getting Started
 
@@ -15,7 +15,7 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-Icons
+Icons used
 - <a href="https://www.flaticon.com/free-icons/absenteeism" title="absenteeism icons">Absenteeism icons created by Freepik - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/timer" title="timer icons">Timer icons created by Pixel perfect - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/book" title="book icons">Book icons created by Smashicons - Flaticon</a>
